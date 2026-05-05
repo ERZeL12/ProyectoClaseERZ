@@ -1,17 +1,15 @@
 package co.edu.uco.ucoparking.transversal;
 
-public  final class Utiltexto {
+public final class UtilTexto {
 	
 	public static final String VACIO = "";
 	
-	private Utiltexto() {
+	private UtilTexto() {
 		super();
 	}
 	
 	public static boolean esNula(final String texto) {
-		
 		return UtilObjeto.esNulo(texto);
-		
 	}
 	
 	public static String obtenerValorDefecto(final String texto, final String valorDefecto) {
