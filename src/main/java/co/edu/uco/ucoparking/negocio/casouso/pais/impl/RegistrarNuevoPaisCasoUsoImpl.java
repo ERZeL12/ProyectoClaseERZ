@@ -29,16 +29,13 @@ public class RegistrarNuevoPaisCasoUsoImpl implements RegistrarNuevoPaisCasoUso 
 	// 1. Validacion de integridad de datos: tipo de dato, longitud, obligatoriedad, formato, rango
 	private void validarIntegridadDatosPais(final PaisDominio pais) {
 		if (UtilObjeto.esNulo(pais)) {
-			throw new UcoParkingExcepcion("Los datos del país son obligatorios");
+			throw new UcoParkingExcepcion("Los datos del pais son obligatorios");
 		}
-		if (UtilTexto.esNula(pais.getNombre()) || pais.getNombre().trim().isEmpty()) {
-			throw new UcoParkingExcepcion("El nombre del país es obligatorio");
+		if (UtilTexto.esNula(pais.getNombre()) || pais.getNombre().isEmpty()) {
+			throw new UcoParkingExcepcion("El nombre del pais es obligatorio");
 		}
-		if (pais.getNombre().trim().length() < 3 || pais.getNombre().trim().length() > 100) {
-			throw new UcoParkingExcepcion("El nombre del país debe tener entre 3 y 100 caracteres");
-		}
-		if (!pais.getNombre().matches("[\\p{L} ]+")) {
-			throw new UcoParkingExcepcion("El nombre del país solo puede contener letras y espacios");
+		if (pais.getNombre().length() < 3 || pais.getNombre().length() > 100) {
+			throw new UcoParkingExcepcion("El nombre del pais debe tener entre 3 y 100 caracteres");
 		}
 	}
 
@@ -46,9 +43,8 @@ public class RegistrarNuevoPaisCasoUsoImpl implements RegistrarNuevoPaisCasoUso 
 	private void validarNoExistaOtroPaisConMismoNombre(final String nombre) {
 		var paisEntidadFiltro = new PaisEntidad.Builder().nombre(nombre).build();
 		var resultados = daoFactory.getPaisDAO().consultarPorFiltro(paisEntidadFiltro);
-
 		if (!UtilObjeto.esNulo(resultados) && !resultados.isEmpty()) {
-			throw new UcoParkingExcepcion();
+			throw new UcoParkingExcepcion("Ya existe un pais registrado con el nombre: " + nombre);
 		}
 	}
 
@@ -68,3 +64,4 @@ public class RegistrarNuevoPaisCasoUsoImpl implements RegistrarNuevoPaisCasoUso 
 	}
 
 }
+

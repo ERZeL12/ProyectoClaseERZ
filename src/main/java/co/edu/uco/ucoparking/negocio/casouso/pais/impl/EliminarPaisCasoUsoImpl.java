@@ -25,10 +25,10 @@ public class EliminarPaisCasoUsoImpl implements EliminarPaisCasoUso {
 	// 1. Validar que el id no sea nulo
 	private void validarIntegridadDatosPais(final PaisDominio pais) {
 		if (UtilObjeto.esNulo(pais)) {
-			throw new UcoParkingExcepcion();
+			throw new UcoParkingExcepcion("Los datos del pais son obligatorios");
 		}
 		if (UtilObjeto.esNulo(pais.getId())) {
-			throw new UcoParkingExcepcion();
+			throw new UcoParkingExcepcion("El identificador del pais es obligatorio para eliminar");
 		}
 	}
 
@@ -36,7 +36,7 @@ public class EliminarPaisCasoUsoImpl implements EliminarPaisCasoUso {
 	private void validarExistePais(final PaisDominio pais) {
 		var paisEncontrado = daoFactory.getPaisDAO().consultarPorId(pais.getId());
 		if (UtilObjeto.esNulo(paisEncontrado)) {
-			throw new UcoParkingExcepcion();
+			throw new UcoParkingExcepcion("No existe un pais registrado con el identificador proporcionado");
 		}
 	}
 

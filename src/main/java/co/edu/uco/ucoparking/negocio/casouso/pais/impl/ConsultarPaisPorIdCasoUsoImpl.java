@@ -25,21 +25,19 @@ public class ConsultarPaisPorIdCasoUsoImpl implements ConsultarPaisPorIdCasoUso 
 	// 1. Validar que el id no sea nulo
 	private void validarIntegridadDatos(final PaisDominio pais) {
 		if (UtilObjeto.esNulo(pais)) {
-			throw new UcoParkingExcepcion();
+			throw new UcoParkingExcepcion("Los datos del pais son obligatorios");
 		}
 		if (UtilObjeto.esNulo(pais.getId())) {
-			throw new UcoParkingExcepcion();
+			throw new UcoParkingExcepcion("El identificador del pais es obligatorio para consultar");
 		}
 	}
 
 	// 2. Consultar el pais por id y convertir entidad a dominio
 	private PaisDominio consultarPais(final PaisDominio pais) {
 		PaisEntidad entidadEncontrada = daoFactory.getPaisDAO().consultarPorId(pais.getId());
-
 		if (UtilObjeto.esNulo(entidadEncontrada)) {
-			throw new UcoParkingExcepcion();
+			throw new UcoParkingExcepcion("No existe un pais registrado con el identificador proporcionado");
 		}
-
 		return new PaisDominio.Builder()
 				.id(entidadEncontrada.getId())
 				.nombre(entidadEncontrada.getNombre())

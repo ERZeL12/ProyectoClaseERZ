@@ -45,14 +45,15 @@ public class RegistrarNuevoPaisFachadaImpl implements RegistrarNuevoPaisFachada 
 	}
 
 	public static void main(final String[] args) {
-		try {
-			var pais = new PaisDTO.Builder().nombre("Colombia").build();
-			RegistrarNuevoPaisFachada fachada = new RegistrarNuevoPaisFachadaImpl();
-			fachada.ejecutar(pais);
-			System.out.println("Pais registrado exitosamente.");
-		} catch (Exception excepcion) {
-			System.err.println("Error al registrar el pais: " + excepcion.getMessage());
-		}
+	    try {
+	    	var pais = new PaisDTO.Builder().nombre("Bulgaria").build();
+	        RegistrarNuevoPaisFachada fachada = new RegistrarNuevoPaisFachadaImpl();
+	        fachada.ejecutar(pais);
+	        System.out.println("Pais registrado exitosamente.");
+	    } catch (Exception excepcion) {
+	        System.err.println("Error al registrar el pais: " + excepcion.getMessage());
+	        excepcion.printStackTrace();
+	    }
 	}
 
 }

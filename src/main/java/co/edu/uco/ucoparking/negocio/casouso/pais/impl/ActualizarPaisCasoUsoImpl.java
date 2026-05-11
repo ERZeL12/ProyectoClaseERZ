@@ -30,16 +30,16 @@ public class ActualizarPaisCasoUsoImpl implements ActualizarPaisCasoUso {
 	// 1. Validacion de integridad de datos
 	private void validarIntegridadDatosPais(final PaisDominio pais) {
 		if (UtilObjeto.esNulo(pais)) {
-			throw new UcoParkingExcepcion();
+			throw new UcoParkingExcepcion("Los datos del pais son obligatorios");
 		}
 		if (UtilObjeto.esNulo(pais.getId())) {
-			throw new UcoParkingExcepcion();
+			throw new UcoParkingExcepcion("El identificador del pais es obligatorio para actualizar");
 		}
-		if (UtilTexto.esNula(pais.getNombre()) || pais.getNombre().trim().isEmpty()) {
-			throw new UcoParkingExcepcion();
+		if (UtilTexto.esNula(pais.getNombre()) || pais.getNombre().isEmpty()) {
+			throw new UcoParkingExcepcion("El nombre del pais es obligatorio");
 		}
-		if (pais.getNombre().trim().length() > 100) {
-			throw new UcoParkingExcepcion();
+		if (pais.getNombre().length() < 3 || pais.getNombre().length() > 100) {
+			throw new UcoParkingExcepcion("El nombre del pais debe tener entre 3 y 100 caracteres");
 		}
 	}
 
@@ -47,19 +47,18 @@ public class ActualizarPaisCasoUsoImpl implements ActualizarPaisCasoUso {
 	private void validarExistePais(final UUID id) {
 		var paisEncontrado = daoFactory.getPaisDAO().consultarPorId(id);
 		if (UtilObjeto.esNulo(paisEncontrado)) {
-			throw new UcoParkingExcepcion();
+			throw new UcoParkingExcepcion("No existe un pais registrado con el identificador proporcionado");
 		}
 	}
 
-	// 3. No debe existir otro pais con el mismo nombre (diferente al que se actualiza)
+	// 3. No debe existir otro pais con el mismo nombre
 	private void validarNoExistaOtroPaisConMismoNombre(final String nombre, final UUID idActual) {
 		var paisEntidadFiltro = new PaisEntidad.Builder().nombre(nombre).build();
 		var resultados = daoFactory.getPaisDAO().consultarPorFiltro(paisEntidadFiltro);
-
 		if (!UtilObjeto.esNulo(resultados) && !resultados.isEmpty()) {
 			for (var pais : resultados) {
 				if (!pais.getId().equals(idActual)) {
-					throw new UcoParkingExcepcion();
+					throw new UcoParkingExcepcion("Ya existe otro pais registrado con el nombre: " + nombre);
 				}
 			}
 		}
