@@ -29,13 +29,16 @@ public class RegistrarNuevoPaisCasoUsoImpl implements RegistrarNuevoPaisCasoUso 
 	// 1. Validacion de integridad de datos: tipo de dato, longitud, obligatoriedad, formato, rango
 	private void validarIntegridadDatosPais(final PaisDominio pais) {
 		if (UtilObjeto.esNulo(pais)) {
-			throw new UcoParkingExcepcion();
+			throw new UcoParkingExcepcion("Los datos del país son obligatorios");
 		}
 		if (UtilTexto.esNula(pais.getNombre()) || pais.getNombre().trim().isEmpty()) {
-			throw new UcoParkingExcepcion();
+			throw new UcoParkingExcepcion("El nombre del país es obligatorio");
 		}
-		if (pais.getNombre().trim().length() > 100) {
-			throw new UcoParkingExcepcion();
+		if (pais.getNombre().trim().length() < 3 || pais.getNombre().trim().length() > 100) {
+			throw new UcoParkingExcepcion("El nombre del país debe tener entre 3 y 100 caracteres");
+		}
+		if (!pais.getNombre().matches("[\\p{L} ]+")) {
+			throw new UcoParkingExcepcion("El nombre del país solo puede contener letras y espacios");
 		}
 	}
 
