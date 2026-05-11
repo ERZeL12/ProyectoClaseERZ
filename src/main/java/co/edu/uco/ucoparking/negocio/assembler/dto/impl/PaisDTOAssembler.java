@@ -3,7 +3,7 @@ package co.edu.uco.ucoparking.negocio.assembler.dto.impl;
 import co.edu.uco.ucoparking.dto.PaisDTO;
 import co.edu.uco.ucoparking.negocio.assembler.dto.DTOAssembler;
 import co.edu.uco.ucoparking.negocio.dominio.PaisDominio;
-import co.edu.uco.ucoparking.transversal.UtilObjeto;
+import co.edu.uco.ucoparking.transversal.utilitario.UtilObjeto;
 
 public final class PaisDTOAssembler implements DTOAssembler<PaisDominio, PaisDTO> {
 
