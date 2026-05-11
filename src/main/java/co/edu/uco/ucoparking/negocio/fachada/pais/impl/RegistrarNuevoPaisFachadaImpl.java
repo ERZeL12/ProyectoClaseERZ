@@ -51,8 +51,7 @@ public class RegistrarNuevoPaisFachadaImpl implements RegistrarNuevoPaisFachada 
 			fachada.ejecutar(pais);
 			System.out.println("Pais registrado exitosamente.");
 		} catch (Exception excepcion) {
-			System.err.println("Error al registrar el pais.");
-			excepcion.printStackTrace();
+			System.err.println("Error al registrar el pais: " + excepcion.getMessage());
 		}
 	}
 
