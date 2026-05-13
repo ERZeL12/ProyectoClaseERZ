@@ -50,7 +50,11 @@ public class RegistrarNuevoPaisCasoUsoImpl implements RegistrarNuevoPaisCasoUso 
 
 	// 3. Generar id unico para el nuevo pais
 	private UUID generarIdUnicoNuevoPais() {
-		return UUID.randomUUID();
+	    var id = UUID.randomUUID();
+	    while (!UtilObjeto.esNulo(daoFactory.getPaisDAO().consultarPorId(id))) {
+	        id = UUID.randomUUID();
+	    }
+	    return id;
 	}
 
 	// 4. Guardar la informacion del nuevo pais
