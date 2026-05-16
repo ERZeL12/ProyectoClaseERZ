@@ -49,7 +49,7 @@ public class EliminarPaisFachadaImpl implements EliminarPaisFachada {
 	public static void main(final String[] args) {
 	    try {
 	        var pais = new PaisDTO.Builder()
-	                .id(UUID.fromString("1e15754b-43b2-4681-a845-c6b9bddc315c"))
+	                .id(UUID.fromString("217d5772-6b9d-44e4-adf7-9cd98f6d0075"))
 	                .build();
 	        EliminarPaisFachada fachada = new EliminarPaisFachadaImpl();
 	        fachada.ejecutar(pais);

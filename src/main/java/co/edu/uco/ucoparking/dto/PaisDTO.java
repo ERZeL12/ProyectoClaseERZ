@@ -9,6 +9,11 @@ public class PaisDTO {
 	private UUID id;
 	private String nombre;
 	
+	public PaisDTO() {
+		setId(UUID.fromString("00000000-0000-0000-0000-000000000000"));
+		setNombre(""); //Inicializar para que no sea con valores nulo
+	}
+	
 	private PaisDTO(final Builder builder) {
 		setId(builder.id);
 		setNombre(builder.nombre);
