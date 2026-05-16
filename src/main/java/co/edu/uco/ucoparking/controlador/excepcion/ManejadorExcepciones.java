@@ -12,7 +12,7 @@ import co.edu.uco.ucoparking.transversal.utilitario.excepcion.UcoParkingExcepcio
 public class ManejadorExcepciones {
 
 	@ExceptionHandler(UcoParkingExcepcion.class)
-	public ResponseEntity<RespuestaError> gestionarUcoParkingExcepcion(UcoParkingExcepcion excepcion) {
+	public ResponseEntity<RespuestaError> gestionarUcoParkingExcepcion(final UcoParkingExcepcion excepcion) {
 		System.err.println(excepcion.getMensajeTecnico());
 		excepcion.getExcepcionRaiz().printStackTrace();
 
@@ -20,7 +20,7 @@ public class ManejadorExcepciones {
 	}
 
 	@ExceptionHandler(Exception.class)
-	public ResponseEntity<RespuestaError> gestionarExcepcion(Exception excepcion) {
+	public ResponseEntity<RespuestaError> gestionarExcepcion(final Exception excepcion) {
 		System.err.println("Excepcion no controlada.....");
 		excepcion.printStackTrace();
 
