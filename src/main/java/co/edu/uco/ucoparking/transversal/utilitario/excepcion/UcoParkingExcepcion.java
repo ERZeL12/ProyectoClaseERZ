@@ -7,6 +7,13 @@ public class UcoParkingExcepcion extends RuntimeException {
     private String mensajeUsuario;
     private String mensajeTecnico;
     private Exception excepcionRaiz;
+    
+    public UcoParkingExcepcion(String mensajeUsuario, String mensajeTecnico, Exception excepcion) {
+		super();
+		this.mensajeUsuario = mensajeUsuario;
+		this.mensajeTecnico = mensajeTecnico;
+		this.excepcionRaiz = excepcion;
+	}
 
     public UcoParkingExcepcion() {
         super();

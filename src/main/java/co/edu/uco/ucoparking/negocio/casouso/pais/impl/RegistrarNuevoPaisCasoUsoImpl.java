@@ -2,6 +2,9 @@ package co.edu.uco.ucoparking.negocio.casouso.pais.impl;
 
 import java.util.UUID;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import co.edu.uco.ucoparking.datos.dao.sql.factoria.DAOFactory;
 import co.edu.uco.ucoparking.entidad.PaisEntidad;
 import co.edu.uco.ucoparking.negocio.casouso.pais.RegistrarNuevoPaisCasoUso;
@@ -12,6 +15,8 @@ import co.edu.uco.ucoparking.transversal.utilitario.excepcion.UcoParkingExcepcio
 
 public class RegistrarNuevoPaisCasoUsoImpl implements RegistrarNuevoPaisCasoUso {
 
+	
+	private static final  Logger logger = LoggerFactory.getLogger(RegistrarNuevoPaisCasoUsoImpl.class);
 	private DAOFactory daoFactory;
 
 	public RegistrarNuevoPaisCasoUsoImpl(final DAOFactory daoFactory) {
@@ -21,9 +26,27 @@ public class RegistrarNuevoPaisCasoUsoImpl implements RegistrarNuevoPaisCasoUso 
 
 	@Override
 	public void ejecutar(final PaisDominio datos) {
+		
+		try { //Estos try catch al menos en los ejecutar y en todo donde tengo que saber donde paso, dto etc...
+		logger.debug("Entre al metodo ejecutar...");
+		
+		
+	
 		validarIntegridadDatosPais(datos);
 		validarNoExistaOtroPaisConMismoNombre(datos.getNombre());
 		guardarNuevoPais(datos);
+		
+		logger.debug("Sali del metodo ejecutar de forma exitosa.");
+		} catch (UcoParkingExcepcion excepcion) {
+			logger.debug(excepcion.getMensajeTecnico(), excepcion.getExcepcionRaiz());
+			throw excepcion;
+		} catch (Exception excepcion) {
+			var mensajeUsuario = "Se ha presentado un problema no controlado , registrando la informacion del nuevo pais";
+			var mensajeTecnico = "Se presento un flujo no controlado dentro de la clase" + this.getClass().toString();
+			logger.debug(mensajeTecnico, excepcion);
+			throw new UcoParkingExcepcion(mensajeUsuario, mensajeTecnico, excepcion); //Colocar constructor alla para que esto salga bueno
+			
+		}
 	}
 
 	// 1. Validacion de integridad de datos: tipo de dato, longitud, obligatoriedad, formato, rango
